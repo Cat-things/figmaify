@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:">
+<title>Figmaify</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img src="icon.png" alt="" width="22" height="22">
+    <span>Figmaify</span>
+  </div>
+  <div class="token-state" id="token-state" hidden>
+    <span id="token-label">Figma token saved</span>
+    <button type="button" class="link" id="token-change">Change</button>
+  </div>
+</header>
+
+<main>
+  <section class="pane">
+    <div class="block" id="token-block" hidden>
+      <h2>Figma access token</h2>
+      <p class="hint">
+        Figmaify reads your design through the Figma API. Make a personal access token
+        with the <code>file_content:read</code> scope and paste it here. It's stored
+        encrypted on this PC and only sent to Figma.
+      </p>
+      <form class="row" id="token-form">
+        <input type="password" id="token" placeholder="figd_..." autocomplete="off" spellcheck="false">
+        <button type="submit">Save</button>
+        <button type="button" id="token-cancel" hidden>Cancel</button>
+      </form>
+      <p class="error" id="token-error" hidden></p>
+      <button type="button" class="link" data-help="token">How do I make a token?</button>
+    </div>
+
+    <div class="block" id="file-block">
+      <h2>Figma file</h2>
+      <form class="row" id="file-form">
+        <input type="text" id="url" placeholder="https://www.figma.com/design/..." spellcheck="false">
+        <button type="submit" id="load">Load</button>
+      </form>
+      <p class="hint" id="file-info">Paste the link to a design file. Every top level frame can become a screen.</p>
+      <p class="error" id="file-error" hidden></p>
+    </div>
+
+    <div class="block grow" id="frames-block">
+      <div class="block-head">
+        <h2>Screens</h2>
+        <select id="page" disabled aria-label="Page"></select>
+      </div>
+      <div class="list" id="frames">
+        <p class="empty">Load a file to see its frames.</p>
+      </div>
+      <div class="list-foot">
+        <button type="button" class="link" id="select-all" disabled>Select all on page</button>
+        <button type="button" class="link" id="select-none" disabled>Clear</button>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="pane">
+    <div class="block">
+      <h2>App</h2>
+      <div class="grid">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="My App" maxlength="80">
+
+        <label for="version">Version</label>
+        <input type="text" id="version" value="1.0.0" maxlength="20">
+
+        <label for="start">Start screen</label>
+        <select id="start" disabled></select>
+
+        <span class="label label-top">Window</span>
+        <div class="stack">
+          <label class="choice"><input type="radio" name="frame" value="standard" checked> Standard Windows title bar</label>
+          <label class="choice"><input type="radio" name="frame" value="none"> No title bar, the design has its own</label>
+          <label class="choice"><input type="checkbox" id="resizable" checked> Can be resized</label>
+        </div>
+
+        <span class="label">Fonts</span>
+        <label class="choice"><input type="checkbox" id="fonts" checked> Bundle fonts from Google Fonts</label>
+
+        <span class="label">Icon</span>
+        <div class="row tight">
+          <img id="icon-preview" class="icon-preview" alt="" hidden>
+          <span class="muted" id="icon-name">Default icon</span>
+          <button type="button" id="icon-pick">Choose</button>
+          <button type="button" class="link" id="icon-clear" hidden>Remove</button>
+        </div>
+
+        <span class="label">Save to</span>
+        <div class="row tight">
+          <span class="path" id="out-dir"></span>
+          <button type="button" id="out-pick">Change</button>
+        </div>
+      </div>
+      <p class="hint">
+        Name layers with tags like <code>@input</code>, <code>@drag</code> or <code>@close</code>
+        to get text fields and window controls.
+        <button type="button" class="link" data-help="tags">All tags</button>
+      </p>
+    </div>
+
+    <div class="block grow">
+      <div class="build-row">
+        <button type="button" class="primary" id="build" disabled>Build app</button>
+        <span class="muted" id="build-note"></span>
+      </div>
+      <ol class="log" id="log" aria-live="polite"></ol>
+      <div class="row" id="done" hidden>
+        <button type="button" id="run">Run app</button>
+        <button type="button" id="open">Open folder</button>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

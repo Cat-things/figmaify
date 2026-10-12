@@ -1,0 +1,129 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  user-select: none;
+}
+
+img {
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+/* Each top level Figma frame is a screen. The frame never shrinks below its
+   design size, and grows with the window following its constraints. */
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.screen > .frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: var(--w);
+  min-height: var(--h);
+}
+
+.screen.as-overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.screen.as-overlay > .frame {
+  flex: none;
+  width: var(--w);
+  height: var(--h);
+  min-width: 0;
+  min-height: 0;
+}
+
+.screen.as-overlay[data-pos^="top"] { align-items: flex-start; }
+.screen.as-overlay[data-pos^="bottom"] { align-items: flex-end; }
+.screen.as-overlay[data-pos$="left"] { justify-content: flex-start; }
+.screen.as-overlay[data-pos$="right"] { justify-content: flex-end; }
+
+.hot {
+  cursor: pointer;
+}
+
+.hot:focus {
+  outline: none;
+}
+
+.hot:focus-visible {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+
+.ph {
+  visibility: hidden;
+}
+
+.field {
+  position: absolute;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  user-select: text;
+  cursor: text;
+  resize: none;
+}
+
+.field::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
+.drag {
+  -webkit-app-region: drag;
+}
+
+.drag .hot,
+.drag .field,
+.drag [data-win] {
+  -webkit-app-region: no-drag;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background: rgba(128, 128, 128, 0.45) padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

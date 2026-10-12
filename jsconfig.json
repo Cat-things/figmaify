@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2023", "dom", "dom.iterable"],
+    "types": ["node"],
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.js", "test/**/*.js", "scripts/**/*.js"],
+  "exclude": ["src/template/**"]
+}

@@ -1,0 +1,41 @@
+appId: com.catthings.figmaify
+productName: Figmaify
+copyright: Copyright (c) 2026 Cat-things
+artifactName: ${productName}-${version}-${arch}.${ext}
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - package.json
+  - src/**/*
+  - "!src/template/icon.svg"
+
+# Used to put the icon and version info on the exe of every app Figmaify builds.
+extraResources:
+  - from: node_modules/rcedit/bin/rcedit-x64.exe
+    to: rcedit-x64.exe
+
+npmRebuild: false
+
+# Every app Figmaify builds runs on a copy of this exe with its code in
+# resources/app instead of an asar, so these have to stay off.
+electronFuses:
+  onlyLoadAppFromAsar: false
+  enableEmbeddedAsarIntegrityValidation: false
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: zip
+      arch: [x64]
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  artifactName: ${productName}-Setup-${version}.${ext}
+  shortcutName: Figmaify
