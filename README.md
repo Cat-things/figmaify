@@ -10,7 +10,7 @@ Windows comes first. Linux is planned.
 
 ## Download
 
-Get the installer or the zip from [Releases](https://github.com/Cat-things/figmaify/releases).
+Get the installer or the zip from [Releases](https://github.com/Cat-things/figmaify/releases). A new release goes out by itself every 5 commits on main.
 
 The builds aren't code signed yet, so SmartScreen will complain the first time. Click "More info" and then "Run anyway".
 
@@ -99,6 +99,10 @@ npm run dist        # installer and zip end up in dist/
 ```
 
 `npm run icons` redraws the icons after you edit `build/icon.svg` or `src/template/icon.svg`.
+
+### Releases
+
+CI builds every push to main. When main has 5 commits since the last release, that build becomes the next release: the patch version goes up by one and the release notes list the commits since the last one. To jump to a new minor or major version, bump it in `package.json` and the next release uses it. Pushing a `vX.Y.Z` tag yourself releases straight away.
 
 ## How it works
 
